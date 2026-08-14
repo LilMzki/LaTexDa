@@ -51,6 +51,16 @@ npm run check
 npm test
 ```
 
+## Sitesへのデプロイ準備
+
+Sitesのbuildless Worker構成に対応しています。既存のブラウザゲームはそのまま保持し、ビルド時にHTML・CSS・JavaScriptをWorkerの静的レスポンスへインライン化します。
+
+```bash
+npm run validate
+```
+
+このコマンドは `dist/server/index.js` と `dist/.openai/hosting.json` を生成し、Workerが `default.fetch` を公開していることを検証します。Sitesでサイトを作成すると、Sites側のプロジェクトIDが `.openai/hosting.json` に追加されます。デプロイはSitesのチェックポイント操作を実行した時点で開始されます。
+
 ゲームエンジンはDOMから分離されており、文字判定、問題デッキ、得点、プレート失効、全体タイマーをNode.js標準テストランナーで検証します。
 
 ## 構成

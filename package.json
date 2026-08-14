@@ -5,8 +5,10 @@
   "type": "module",
   "description": "制限時間内にLaTeX記法を打ち込むタイピングゲーム",
   "scripts": {
+    "build": "bash scripts/build.sh",
     "test": "node --test",
-    "check": "node --check src/game-engine.js && node --check src/questions.js && node --check src/app.js"
+    "check": "node --check src/game-engine.js && node --check src/questions.js && node --check src/app.js",
+    "validate": "npm run build && node scripts/validate-artifact.mjs"
   },
   "engines": {
     "node": ">=20"

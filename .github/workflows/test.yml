@@ -22,3 +22,5 @@ jobs:
         run: npm run check
       - name: Run unit tests
         run: npm test
+      - name: Build and validate Sites artifact
+        run: npm run validate
