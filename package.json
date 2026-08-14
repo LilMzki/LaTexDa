@@ -1,0 +1,14 @@
+{
+  "name": "latexda",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A timed browser game for practicing exact LaTeX notation.",
+  "scripts": {
+    "check": "node --check src/questions.js && node --check src/game-engine.js && node --check src/app.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
