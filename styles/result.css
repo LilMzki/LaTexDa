@@ -1,0 +1,396 @@
+.result-screen {
+  min-height: calc(100vh - 122px);
+  padding: 58px 0 24px;
+}
+
+.result-card {
+  position: relative;
+  width: min(850px, 100%);
+  margin: 0 auto;
+  padding: clamp(30px, 6vw, 62px);
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 50% -10%, rgba(240, 196, 90, 0.13), transparent 34%),
+    linear-gradient(160deg, rgba(16, 34, 52, 0.97), rgba(8, 19, 31, 0.97));
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.result-card::before,
+.result-card::after {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.022);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14rem;
+  line-height: 1;
+}
+
+.result-card::before {
+  top: -50px;
+  left: -45px;
+  content: "∫";
+  transform: rotate(12deg);
+}
+
+.result-card::after {
+  right: -46px;
+  bottom: -70px;
+  content: "∑";
+  transform: rotate(-10deg);
+}
+
+.result-card h1 {
+  position: relative;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", "Noto Serif JP", serif;
+  font-size: clamp(2.5rem, 6vw, 4.4rem);
+  font-weight: 500;
+}
+
+.result-course {
+  position: relative;
+  margin: 8px 0 30px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.result-score-wrap {
+  position: relative;
+  width: min(490px, 100%);
+  margin: 0 auto;
+  padding: 30px 18px 25px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.result-score-wrap > span,
+.result-score-wrap > small {
+  display: block;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.result-score-wrap strong {
+  display: block;
+  margin: 5px 0;
+  color: var(--accent);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4rem, 12vw, 7.5rem);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+  text-shadow: 0 0 42px rgba(240, 196, 90, 0.14);
+}
+
+.new-record {
+  position: absolute;
+  top: 18px;
+  right: 2px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--red);
+  box-shadow: 0 8px 20px rgba(255, 121, 121, 0.2);
+  color: #351010;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  transform: rotate(4deg);
+}
+
+.result-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 34px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--line);
+}
+
+.result-grid > div {
+  padding: 22px 12px;
+  background: rgba(8, 20, 32, 0.95);
+}
+
+.result-grid span,
+.result-grid strong,
+.result-grid small {
+  display: block;
+}
+
+.result-grid span {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.result-grid strong {
+  margin: 7px 0 2px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.result-grid small {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+}
+
+.result-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0 0;
+  color: #526675;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.keyboard-capture {
+  position: fixed;
+  top: -100px;
+  left: -100px;
+  width: 1px;
+  height: 1px;
+  opacity: 0.01;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .start-screen {
+    padding-top: 62px;
+  }
+
+  .demo-card {
+    width: 92%;
+  }
+
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .course-card {
+    min-height: 280px;
+  }
+
+  .game-hud {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .hud-divider {
+    display: none;
+  }
+
+  .hud-item {
+    min-width: 0;
+  }
+
+  .formula-plate {
+    width: 82%;
+  }
+}
+
+@media (max-width: 680px) {
+  .app-shell {
+    width: min(100% - 24px, 1180px);
+  }
+
+  .topbar {
+    min-height: 76px;
+  }
+
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand strong {
+    font-size: 1.12rem;
+  }
+
+  .brand small,
+  .utility-button > span:not(.utility-icon) {
+    display: none;
+  }
+
+  .utility-button {
+    padding-left: 10px;
+  }
+
+  .start-screen {
+    padding-top: 48px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2.65rem, 14vw, 4rem);
+  }
+
+  .hero-copy h1 span {
+    white-space: normal;
+  }
+
+  .hero-description br {
+    display: none;
+  }
+
+  .demo-card {
+    width: 100%;
+    margin-top: 42px;
+    padding-right: 18px;
+    padding-left: 18px;
+    transform: none;
+  }
+
+  .course-section {
+    margin-top: 76px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .section-heading > p {
+    text-align: left;
+  }
+
+  .course-card {
+    min-height: 295px;
+    padding: 24px;
+  }
+
+  .how-to-play {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .how-to-divider {
+    width: 1px;
+    height: 18px;
+    margin-left: 16px;
+  }
+
+  .game-screen {
+    padding-top: 20px;
+  }
+
+  .game-hud {
+    gap: 7px;
+    padding-bottom: 16px;
+  }
+
+  .hud-label,
+  .hud-unit {
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  .hud-item strong {
+    font-size: clamp(1.4rem, 7vw, 2rem);
+  }
+
+  .conveyor-wrap {
+    margin-top: 22px;
+  }
+
+  .conveyor {
+    min-height: 230px;
+    border-radius: 20px;
+  }
+
+  .formula-plate {
+    width: 92%;
+    min-height: 155px;
+    padding: 26px 32px;
+  }
+
+  .formula-display {
+    font-size: clamp(1rem, 5vw, 1.45rem);
+  }
+
+  .typing-row {
+    min-height: 92px;
+    grid-template-columns: 1fr auto;
+    gap: 8px 12px;
+    padding: 15px;
+  }
+
+  .typing-row-label {
+    grid-column: 1 / -1;
+  }
+
+  .typing-row-label small {
+    display: inline;
+    margin-left: 7px;
+  }
+
+  .typing-row-label span {
+    display: inline;
+  }
+
+  .typing-code {
+    font-size: 0.82rem;
+  }
+
+  .typing-code--input {
+    font-size: 0.94rem;
+  }
+
+  .game-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .game-controls {
+    justify-content: flex-end;
+  }
+
+  .result-screen {
+    padding-top: 28px;
+  }
+
+  .result-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .result-actions button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

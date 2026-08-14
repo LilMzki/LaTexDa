@@ -1,0 +1,14 @@
+{
+  "name": "latex-da",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "制限時間内にLaTeX記法を打ち込むタイピングゲーム",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check src/game-engine.js && node --check src/questions.js && node --check src/app.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
