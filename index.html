@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="数式を見てLaTeX記法をタイプする、制限時間制のブラウザ練習ゲーム"
+    />
+    <title>LaTexDa — LaTeXタイピングゲーム</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+    ></script>
+    <script type="module" src="./src/main.js"></script>
+  </head>
+  <body>
+    <div class="page-glow page-glow--one" aria-hidden="true"></div>
+    <div class="page-glow page-glow--two" aria-hidden="true"></div>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="LaTexDa トップへ">
+          <span class="brand__mark" aria-hidden="true">∑</span>
+          <span>
+            <strong>LaTexDa</strong>
+            <small>LaTeX conveyor typing</small>
+          </span>
+        </a>
+
+        <label class="answer-switch" for="answer-toggle">
+          <span>
+            <strong>正答LaTeX</strong>
+            <small>ゲーム中も切替可能</small>
+          </span>
+          <input id="answer-toggle" type="checkbox" checked />
+          <span class="answer-switch__track" aria-hidden="true">
+            <span class="answer-switch__thumb"></span>
+          </span>
+        </label>
+      </header>
+
+      <section id="start-screen" class="screen start-screen" aria-labelledby="start-title">
+        <div class="hero-copy">
+          <p class="eyebrow">LOOK. TYPE. COMPILE.</p>
+          <h1 id="start-title">
+            数式を見抜いて、<br />
+            <span>LaTeXを打ち抜け。</span>
+          </h1>
+          <p class="hero-copy__lead">
+            ベルトを流れる数式が画面外へ消える前に、対応するLaTeX記法を正確に入力。
+            制限時間内のスコアとコンボを競うタイピングゲームです。
+          </p>
+        </div>
+
+        <div class="course-grid" aria-label="コースを選択">
+          <button class="course-card" type="button" data-start-mode="trial">
+            <span class="course-card__badge">BEGINNER</span>
+            <strong>お試しコース</strong>
+            <span class="course-card__time">30秒</span>
+            <small>基本記法だけでウォームアップ</small>
+            <span class="course-card__cta">このコースで開始 →</span>
+          </button>
+
+          <button class="course-card course-card--featured" type="button" data-start-mode="standard">
+            <span class="course-card__badge">STANDARD</span>
+            <strong>修行コース</strong>
+            <span class="course-card__time">60秒</span>
+            <small>分数・行列・積分まで幅広く出題</small>
+            <span class="course-card__cta">このコースで開始 →</span>
+          </button>
+
+          <button class="course-card" type="button" data-start-mode="master">
+            <span class="course-card__badge">EXPERT</span>
+            <strong>達人コース</strong>
+            <span class="course-card__time">120秒</span>
+            <small>長い数式と高度な環境に挑戦</small>
+            <span class="course-card__cta">このコースで開始 →</span>
+          </button>
+        </div>
+
+        <div class="rule-strip" aria-label="ゲームルール">
+          <div>
+            <span>01</span>
+            <p><strong>数式を読む</strong>ベルト上のレンダリング結果を確認</p>
+          </div>
+          <div>
+            <span>02</span>
+            <p><strong>完全一致で入力</strong>空白・波括弧・バックスラッシュも判定</p>
+          </div>
+          <div>
+            <span>03</span>
+            <p><strong>素早く連続正解</strong>残り時間とコンボでスコア増加</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="game-screen" class="screen game-screen" aria-labelledby="game-title" hidden>
+        <h1 id="game-title" class="sr-only">LaTeXタイピングゲーム</h1>
+
+        <div class="hud" aria-label="ゲーム状況">
+          <div class="hud__primary">
+            <span>TIME</span>
+            <strong id="time-value">60.0</strong>
+          </div>
+          <div>
+            <span>SCORE</span>
+            <strong id="score-value">0</strong>
+          </div>
+          <div>
+            <span>COMBO</span>
+            <strong><span id="combo-value">0</span><small>x</small></strong>
+          </div>
+          <div>
+            <span>ACCURACY</span>
+            <strong><span id="accuracy-value">100.0</span><small>%</small></strong>
+          </div>
+          <button id="quit-button" class="icon-button" type="button" aria-label="ゲームを終了">×</button>
+        </div>
+
+        <div class="game-board">
+          <div id="conveyor" class="conveyor" aria-live="polite">
+            <div class="conveyor__sign" aria-hidden="true">
+              <span id="mode-name">修行コース</span>
+              <span id="question-topic">分数</span>
+            </div>
+
+            <div id="plate" class="plate" aria-hidden="true">
+              <div class="formula-ticket">
+                <span class="formula-ticket__label">TYPE THIS FORMULA</span>
+                <div id="rendered-equation" class="rendered-equation"></div>
+              </div>
+              <div class="sushi">
+                <span class="sushi__rice"></span>
+                <span class="sushi__topping"></span>
+                <span class="sushi__shine"></span>
+              </div>
+              <div class="dish"></div>
+            </div>
+
+            <div class="conveyor__rollers" aria-hidden="true"></div>
+            <div class="conveyor__track" aria-hidden="true"></div>
+          </div>
+
+          <div class="prompt-meter" aria-hidden="true">
+            <span id="prompt-meter-fill"></span>
+          </div>
+
+          <div class="typing-panel" id="typing-panel">
+            <div class="typing-row typing-row--answer">
+              <span class="typing-row__label">正答 LaTeX</span>
+              <code id="expected-answer">\frac{1}{2}</code>
+            </div>
+
+            <label class="typing-row typing-row--input" for="latex-input">
+              <span class="typing-row__label">入力した文字列</span>
+              <span class="input-wrap">
+                <input
+                  id="latex-input"
+                  type="text"
+                  inputmode="text"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  aria-describedby="input-message"
+                />
+                <span id="input-caret-hint" class="input-caret-hint" aria-hidden="true"></span>
+              </span>
+            </label>
+
+            <div class="typing-panel__footer">
+              <p id="input-message" class="input-message">数式と同じLaTeX記法を入力してください。</p>
+              <p><kbd>\</kbd> バックスラッシュもそのまま入力</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lower-rail">
+          <div id="feedback" class="feedback" role="status" aria-live="assertive"></div>
+          <ol id="answer-history" class="answer-history" aria-label="直近の回答"></ol>
+        </div>
+      </section>
+
+      <section id="result-screen" class="screen result-screen" aria-labelledby="result-title" hidden>
+        <div class="result-card">
+          <p class="eyebrow">TIME UP — RESULT</p>
+          <h1 id="result-title">コンパイル完了。</h1>
+          <p id="result-course" class="result-card__course">修行コース / 60秒</p>
+
+          <div class="final-score">
+            <span>FINAL SCORE</span>
+            <strong id="final-score-value">0</strong>
+            <small id="high-score-message">BEST 0</small>
+          </div>
+
+          <dl class="result-stats">
+            <div>
+              <dt>正解数</dt>
+              <dd id="result-correct">0</dd>
+            </div>
+            <div>
+              <dt>見送り</dt>
+              <dd id="result-missed">0</dd>
+            </div>
+            <div>
+              <dt>最大コンボ</dt>
+              <dd id="result-combo">0</dd>
+            </div>
+            <div>
+              <dt>正確性</dt>
+              <dd><span id="result-accuracy">100.0</span>%</dd>
+            </div>
+            <div>
+              <dt>入力速度</dt>
+              <dd><span id="result-cpm">0</span> CPM</dd>
+            </div>
+          </dl>
+
+          <div class="result-actions">
+            <button id="retry-button" class="button button--primary" type="button">同じコースでもう一度</button>
+            <button id="share-button" class="button button--secondary" type="button">結果をコピー</button>
+            <button id="courses-button" class="button button--ghost" type="button">コース選択へ</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <noscript>このゲームを遊ぶにはJavaScriptを有効にしてください。</noscript>
+  </body>
+</html>

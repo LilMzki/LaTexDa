@@ -1,0 +1,14 @@
+{
+  "name": "latex-da",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LaTeX記法を制限時間内にタイプするブラウザゲーム",
+  "scripts": {
+    "serve": "python3 -m http.server 4173",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
