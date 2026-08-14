@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "LaTeX記法を制限時間内にタイプするブラウザゲーム",
+  "description": "制限時間内にLaTeX記法を打ち込むタイピングゲーム",
   "scripts": {
-    "serve": "python3 -m http.server 4173",
-    "test": "node --test"
+    "test": "node --test",
+    "check": "node --check src/game-engine.js && node --check src/questions.js && node --check src/app.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   }
 }
