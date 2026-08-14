@@ -1,254 +1,278 @@
-export const QUESTION_BANK = Object.freeze([
+const raw = String.raw;
+
+/**
+ * 問題は表示用の数式と、打鍵するLaTeX文字列を同一にしています。
+ * difficulty: 1 = 基礎 / 2 = 標準 / 3 = 発展
+ */
+export const QUESTIONS = Object.freeze([
   {
-    id: "square-sum",
-    level: "easy",
-    latex: "x^2 + y^2 = z^2",
-    answer: "x^2 + y^2 = z^2",
-    topic: "上付き文字"
+    id: "basic-power",
+    latex: raw`x^2`,
+    difficulty: 1,
+    category: "上付き文字"
   },
   {
-    id: "simple-fraction",
-    level: "easy",
-    latex: "\\frac{1}{2}",
-    answer: "\\frac{1}{2}",
-    topic: "分数"
+    id: "basic-subscript",
+    latex: raw`a_n`,
+    difficulty: 1,
+    category: "下付き文字"
   },
   {
-    id: "square-root",
-    level: "easy",
-    latex: "\\sqrt{x}",
-    answer: "\\sqrt{x}",
-    topic: "平方根"
+    id: "basic-fraction",
+    latex: raw`\frac{1}{2}`,
+    difficulty: 1,
+    category: "分数"
   },
   {
-    id: "greek-letters",
-    level: "easy",
-    latex: "\\alpha + \\beta = \\gamma",
-    answer: "\\alpha + \\beta = \\gamma",
-    topic: "ギリシャ文字"
+    id: "basic-root",
+    latex: raw`\sqrt{x}`,
+    difficulty: 1,
+    category: "平方根"
   },
   {
-    id: "euler-identity",
-    level: "easy",
-    latex: "e^{i\\pi}+1=0",
-    answer: "e^{i\\pi}+1=0",
-    topic: "指数"
+    id: "basic-pi",
+    latex: raw`\pi r^2`,
+    difficulty: 1,
+    category: "ギリシャ文字"
   },
   {
-    id: "finite-sum",
-    level: "easy",
-    latex: "\\sum_{k=1}^{n} k",
-    answer: "\\sum_{k=1}^{n} k",
-    topic: "総和"
+    id: "basic-alpha-beta",
+    latex: raw`\alpha+\beta`,
+    difficulty: 1,
+    category: "ギリシャ文字"
   },
   {
-    id: "definite-integral",
-    level: "easy",
-    latex: "\\int_0^1 x^2\\,dx",
-    answer: "\\int_0^1 x^2\\,dx",
-    topic: "積分"
+    id: "basic-trig",
+    latex: raw`\sin x`,
+    difficulty: 1,
+    category: "関数"
   },
   {
-    id: "sine-limit",
-    level: "easy",
-    latex: "\\lim_{x\\to 0} \\frac{\\sin x}{x}=1",
-    answer: "\\lim_{x\\to 0} \\frac{\\sin x}{x}=1",
-    topic: "極限"
+    id: "basic-log",
+    latex: raw`\log x`,
+    difficulty: 1,
+    category: "関数"
   },
   {
-    id: "binomial",
-    level: "easy",
-    latex: "\\binom{n}{r}",
-    answer: "\\binom{n}{r}",
-    topic: "二項係数"
+    id: "basic-infinity",
+    latex: raw`x\to\infty`,
+    difficulty: 1,
+    category: "記号"
   },
   {
-    id: "overline",
-    level: "easy",
-    latex: "\\overline{AB}",
-    answer: "\\overline{AB}",
-    topic: "装飾"
+    id: "basic-inequality",
+    latex: raw`x\leq y`,
+    difficulty: 1,
+    category: "不等号"
   },
   {
-    id: "absolute-value",
-    level: "easy",
-    latex: "|x-a| < \\varepsilon",
-    answer: "|x-a| < \\varepsilon",
-    topic: "不等式"
+    id: "basic-set",
+    latex: raw`A\cap B`,
+    difficulty: 1,
+    category: "集合"
   },
   {
-    id: "nth-root",
-    level: "easy",
-    latex: "\\sqrt[n]{x}",
-    answer: "\\sqrt[n]{x}",
-    topic: "n乗根"
+    id: "basic-vector",
+    latex: raw`\vec{v}`,
+    difficulty: 1,
+    category: "装飾"
   },
   {
-    id: "quadratic-formula",
-    level: "medium",
-    latex: "x=\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}",
-    answer: "x=\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}",
-    topic: "二次方程式"
+    id: "basic-overline",
+    latex: raw`\overline{AB}`,
+    difficulty: 1,
+    category: "装飾"
   },
   {
-    id: "product",
-    level: "medium",
-    latex: "\\prod_{k=1}^{n} k=n!",
-    answer: "\\prod_{k=1}^{n} k=n!",
-    topic: "総乗"
+    id: "basic-absolute",
+    latex: raw`\lvert x\rvert`,
+    difficulty: 1,
+    category: "括弧"
   },
   {
-    id: "parentheses-power",
-    level: "medium",
-    latex: "\\left(\\frac{x}{y}\\right)^n",
-    answer: "\\left(\\frac{x}{y}\\right)^n",
-    topic: "可変括弧"
+    id: "basic-euler",
+    latex: raw`e^{i\pi}+1=0`,
+    difficulty: 1,
+    category: "指数"
   },
   {
-    id: "gauss-law",
-    level: "medium",
-    latex: "\\nabla\\cdot\\mathbf{E}=\\frac{\\rho}{\\varepsilon_0}",
-    answer: "\\nabla\\cdot\\mathbf{E}=\\frac{\\rho}{\\varepsilon_0}",
-    topic: "ベクトル解析"
+    id: "standard-sum",
+    latex: raw`\sum_{k=1}^{n}k`,
+    difficulty: 2,
+    category: "総和"
   },
   {
-    id: "matrix",
-    level: "medium",
-    latex: "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}",
-    answer: "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}",
-    topic: "行列"
+    id: "standard-product",
+    latex: raw`\prod_{i=1}^{n}i`,
+    difficulty: 2,
+    category: "総乗"
   },
   {
-    id: "epsilon-delta",
-    level: "medium",
-    latex: "\\forall \\varepsilon>0,\\ \\exists \\delta>0",
-    answer: "\\forall \\varepsilon>0,\\ \\exists \\delta>0",
-    topic: "量化記号"
+    id: "standard-integral",
+    latex: raw`\int_0^1 x^2\,dx`,
+    difficulty: 2,
+    category: "積分"
   },
   {
-    id: "real-vector-space",
-    level: "medium",
-    latex: "\\mathbb{R}^n",
-    answer: "\\mathbb{R}^n",
-    topic: "黒板太字"
+    id: "standard-limit",
+    latex: raw`\lim_{x\to0}\frac{\sin x}{x}=1`,
+    difficulty: 2,
+    category: "極限"
   },
   {
-    id: "dot-product",
-    level: "medium",
-    latex: "\\vec{a}\\cdot\\vec{b}=|\\vec{a}||\\vec{b}|\\cos\\theta",
-    answer: "\\vec{a}\\cdot\\vec{b}=|\\vec{a}||\\vec{b}|\\cos\\theta",
-    topic: "内積"
+    id: "standard-binomial",
+    latex: raw`\binom{n}{k}`,
+    difficulty: 2,
+    category: "組合せ"
   },
   {
-    id: "log-change-base",
-    level: "medium",
-    latex: "\\log_a b=\\frac{\\ln b}{\\ln a}",
-    answer: "\\log_a b=\\frac{\\ln b}{\\ln a}",
-    topic: "対数"
+    id: "standard-delimiter",
+    latex: raw`\left(x+1\right)^2`,
+    difficulty: 2,
+    category: "可変括弧"
   },
   {
-    id: "gaussian-integral",
-    level: "medium",
-    latex: "\\int_{-\\infty}^{\\infty}e^{-x^2}\\,dx=\\sqrt{\\pi}",
-    answer: "\\int_{-\\infty}^{\\infty}e^{-x^2}\\,dx=\\sqrt{\\pi}",
-    topic: "広義積分"
+    id: "standard-real",
+    latex: raw`x\in\mathbb{R}`,
+    difficulty: 2,
+    category: "集合"
   },
   {
-    id: "set-builder",
-    level: "medium",
-    latex: "A=\\{x\\in\\mathbb{R}\\mid x>0\\}",
-    answer: "A=\\{x\\in\\mathbb{R}\\mid x>0\\}",
-    topic: "集合"
+    id: "standard-forall",
+    latex: raw`\forall x\in\mathbb{R}`,
+    difficulty: 2,
+    category: "論理"
   },
   {
-    id: "piecewise-small",
-    level: "medium",
-    latex: "|x|=\\begin{cases}x & x\\ge 0\\\\-x & x<0\\end{cases}",
-    answer: "|x|=\\begin{cases}x & x\\ge 0\\\\-x & x<0\\end{cases}",
-    topic: "場合分け"
+    id: "standard-exists",
+    latex: raw`\exists n\in\mathbb{N}`,
+    difficulty: 2,
+    category: "論理"
   },
   {
-    id: "heat-equation",
-    level: "hard",
-    latex: "\\frac{\\partial u}{\\partial t}=\\alpha\\nabla^2u",
-    answer: "\\frac{\\partial u}{\\partial t}=\\alpha\\nabla^2u",
-    topic: "偏微分"
+    id: "standard-partial",
+    latex: raw`\frac{\partial f}{\partial x}`,
+    difficulty: 2,
+    category: "偏微分"
   },
   {
-    id: "line-integral",
-    level: "hard",
-    latex: "\\oint_C\\mathbf{F}\\cdot d\\mathbf{r}",
-    answer: "\\oint_C\\mathbf{F}\\cdot d\\mathbf{r}",
-    topic: "線積分"
+    id: "standard-gradient",
+    latex: raw`\nabla\cdot\vec{F}`,
+    difficulty: 2,
+    category: "ベクトル解析"
   },
   {
-    id: "aligned-equations",
-    level: "hard",
-    latex: "\\begin{aligned} a&=b+c\\\\ d&=e-f \\end{aligned}",
-    answer: "\\begin{aligned} a&=b+c\\\\ d&=e-f \\end{aligned}",
-    topic: "数式揃え"
+    id: "standard-inner-product",
+    latex: raw`\langle u,v\rangle`,
+    difficulty: 2,
+    category: "内積"
   },
   {
-    id: "eigenvalue",
-    level: "hard",
-    latex: "\\det(A-\\lambda I)=0",
-    answer: "\\det(A-\\lambda I)=0",
-    topic: "固有値"
+    id: "standard-matrix",
+    latex: raw`\begin{pmatrix}a&b\\c&d\end{pmatrix}`,
+    difficulty: 2,
+    category: "行列"
   },
   {
-    id: "basel-problem",
-    level: "hard",
-    latex: "\\sum_{n=1}^{\\infty}\\frac{1}{n^2}=\\frac{\\pi^2}{6}",
-    answer: "\\sum_{n=1}^{\\infty}\\frac{1}{n^2}=\\frac{\\pi^2}{6}",
-    topic: "無限級数"
+    id: "standard-cases",
+    latex: raw`\begin{cases}x+y=1\\x-y=0\end{cases}`,
+    difficulty: 2,
+    category: "場合分け"
   },
   {
-    id: "fourier-transform",
-    level: "hard",
-    latex: "\\mathcal{F}\\{f(t)\\}(\\omega)=\\int_{-\\infty}^{\\infty}f(t)e^{-i\\omega t}\\,dt",
-    answer: "\\mathcal{F}\\{f(t)\\}(\\omega)=\\int_{-\\infty}^{\\infty}f(t)e^{-i\\omega t}\\,dt",
-    topic: "フーリエ変換"
+    id: "standard-derivative",
+    latex: raw`\frac{d}{dx}x^n=nx^{n-1}`,
+    difficulty: 2,
+    category: "微分"
   },
   {
-    id: "evaluated-derivative",
-    level: "hard",
-    latex: "\\left.\\frac{d}{dx}f(x)\\right|_{x=a}",
-    answer: "\\left.\\frac{d}{dx}f(x)\\right|_{x=a}",
-    topic: "評価記号"
+    id: "hard-gaussian",
+    latex: raw`\int_{-\infty}^{\infty}e^{-x^2}\,dx=\sqrt{\pi}`,
+    difficulty: 3,
+    category: "広義積分"
   },
   {
-    id: "rank",
-    level: "hard",
-    latex: "\\operatorname{rank}(A)=n",
-    answer: "\\operatorname{rank}(A)=n",
-    topic: "演算子名"
+    id: "hard-basel",
+    latex: raw`\sum_{n=1}^{\infty}\frac{1}{n^2}=\frac{\pi^2}{6}`,
+    difficulty: 3,
+    category: "無限級数"
   },
   {
-    id: "simultaneous-equations",
-    level: "hard",
-    latex: "\\begin{cases}x+y=1\\\\x-y=0\\end{cases}",
-    answer: "\\begin{cases}x+y=1\\\\x-y=0\\end{cases}",
-    topic: "連立方程式"
+    id: "hard-determinant",
+    latex: raw`\det\begin{pmatrix}a&b\\c&d\end{pmatrix}=ad-bc`,
+    difficulty: 3,
+    category: "行列式"
   },
   {
-    id: "inner-product",
-    level: "hard",
-    latex: "\\left\\langle x,y\\right\\rangle=\\sum_{i=1}^{n}x_i y_i",
-    answer: "\\left\\langle x,y\\right\\rangle=\\sum_{i=1}^{n}x_i y_i",
-    topic: "内積記号"
+    id: "hard-evaluation",
+    latex: raw`\left.\frac{d}{dx}f(x)\right|_{x=0}`,
+    difficulty: 3,
+    category: "評価記号"
   },
   {
-    id: "taylor-series",
-    level: "hard",
-    latex: "f(x)=\\sum_{n=0}^{\\infty}\\frac{f^{(n)}(a)}{n!}(x-a)^n",
-    answer: "f(x)=\\sum_{n=0}^{\\infty}\\frac{f^{(n)}(a)}{n!}(x-a)^n",
-    topic: "テイラー展開"
+    id: "hard-line-integral",
+    latex: raw`\oint_C\vec{F}\cdot d\vec{r}`,
+    difficulty: 3,
+    category: "線積分"
   },
   {
-    id: "maxwell-faraday",
-    level: "hard",
-    latex: "\\nabla\\times\\mathbf{E}=-\\frac{\\partial\\mathbf{B}}{\\partial t}",
-    answer: "\\nabla\\times\\mathbf{E}=-\\frac{\\partial\\mathbf{B}}{\\partial t}",
-    topic: "回転"
+    id: "hard-wave-equation",
+    latex: raw`\frac{\partial^2 u}{\partial t^2}=c^2\nabla^2u`,
+    difficulty: 3,
+    category: "偏微分方程式"
+  },
+  {
+    id: "hard-laplace",
+    latex: raw`\mathcal{L}\{f(t)\}=\int_0^\infty e^{-st}f(t)\,dt`,
+    difficulty: 3,
+    category: "ラプラス変換"
+  },
+  {
+    id: "hard-binomial-distribution",
+    latex: raw`\Pr(X=k)=\binom{n}{k}p^k(1-p)^{n-k}`,
+    difficulty: 3,
+    category: "確率"
+  },
+  {
+    id: "hard-aligned",
+    latex: raw`\begin{aligned}a&=b+c\\d&=e-f\end{aligned}`,
+    difficulty: 3,
+    category: "数式揃え"
+  },
+  {
+    id: "hard-sequence",
+    latex: raw`\left\{\frac{a_n}{b_n}\right\}_{n=1}^{\infty}`,
+    difficulty: 3,
+    category: "数列"
+  },
+  {
+    id: "hard-fourier",
+    latex: raw`\hat{f}(\xi)=\int_{-\infty}^{\infty}f(x)e^{-2\pi i x\xi}\,dx`,
+    difficulty: 3,
+    category: "フーリエ変換"
+  },
+  {
+    id: "hard-taylor",
+    latex: raw`f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n`,
+    difficulty: 3,
+    category: "テイラー展開"
+  },
+  {
+    id: "hard-maxwell",
+    latex: raw`\nabla\times\vec{E}=-\frac{\partial\vec{B}}{\partial t}`,
+    difficulty: 3,
+    category: "ベクトル解析"
+  },
+  {
+    id: "hard-expectation",
+    latex: raw`\mathbb{E}[X]=\sum_x x\Pr(X=x)`,
+    difficulty: 3,
+    category: "期待値"
+  },
+  {
+    id: "hard-rank-nullity",
+    latex: raw`\operatorname{rank}(A)+\operatorname{nullity}(A)=n`,
+    difficulty: 3,
+    category: "線形代数"
   }
 ]);
